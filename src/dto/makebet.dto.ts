@@ -17,4 +17,5 @@ export class makeBetDto {
   @ValidateNested({ each: true })
   @ArrayMinSize(1)
   bet: betListInterface[];
+  wonMoney: number;
 }

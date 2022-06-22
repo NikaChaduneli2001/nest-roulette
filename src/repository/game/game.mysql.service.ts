@@ -11,6 +11,7 @@ export class GameRepositoryService {
     const newBet: RouletteEntity = new RouletteEntity();
     newBet.user = data.userId;
     newBet.bet = JSON.parse(JSON.stringify(data.bet));
+    newBet.wonMoney = 0;
     newBet.date = new Date();
 
     const bet = await this.gameRepository.save(newBet);
@@ -18,6 +19,7 @@ export class GameRepositoryService {
       id: bet.id,
       user: bet.user,
       bet: bet.bet,
+      money: bet.wonMoney,
       date: bet.date,
     };
   }

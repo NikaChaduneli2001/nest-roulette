@@ -16,8 +16,10 @@ export class GameService {
     for (let i = 0; i < data.bet.length; i++) {
       if (data.bet[i].betType == BetType.even) {
         data.bet[i].betAmount *= 2;
+        data.wonMoney += data.bet[i].betAmount;
       } else if (data.bet[i].betType == BetType.odd) {
         data.bet[i].betAmount *= 2;
+        data.wonMoney += data.bet[i].betAmount;
       } else {
         return { message: 'you lose' };
       }
@@ -25,6 +27,7 @@ export class GameService {
       for (let j = 0; j < numbersArray.length; j++) {
         if (data.bet[i].betType == numbersArray[j]) {
           data.bet[i].betAmount *= 36;
+          data.wonMoney += data.bet[i].betAmount;
         } else {
           return { message: 'you lose' };
         }

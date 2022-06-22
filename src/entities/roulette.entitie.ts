@@ -3,7 +3,7 @@ import { betListInterface } from 'src/interface/bet.interface';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { UserEntity } from './users.entitie';
 
-@Entity('orders')
+@Entity('Roulette')
 export class RouletteEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -21,4 +21,11 @@ export class RouletteEntity {
   })
   @IsOptional()
   date: Date;
+  @IsOptional()
+  @Column({
+    type: 'float',
+    length: 99999999,
+    default: 0,
+  })
+  wonMoney: number;
 }
