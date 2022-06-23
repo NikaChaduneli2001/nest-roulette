@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Param,
   Post,
+  Put,
+  Req,
   UseGuards,
   UsePipes,
   ValidationPipe,
@@ -36,6 +39,27 @@ export class GameController {
       return {
         status: 'error',
         message: e.message,
+      };
+    }
+  }
+
+  @Put(':userId/:betId')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UsePipes(ValidationPipe)
+  async fillBalance(@Param() userId: number, betId: number) {
+    try {
+      const result = await this.gameSerice.fillBalance(userId, betId);
+      if (result) {
+        return {
+          status: 'success',
+          message: 'User get successfully',
+          data: result,
+        };
+      }
+    } catch (err) {
+      return {
+        status: 'error',
+        message: err.message,
       };
     }
   }

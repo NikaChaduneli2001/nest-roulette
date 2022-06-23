@@ -44,4 +44,12 @@ export class GameService {
     }
     return await this.gameRepository.makeBet(data);
   }
+
+  async fillBalance(userId: number, betId: number) {
+    try {
+      return await this.gameRepository.fillUserBalance(userId, betId);
+    } catch {
+      return null;
+    }
+  }
 }
