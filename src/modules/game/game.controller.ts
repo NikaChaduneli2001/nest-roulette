@@ -53,7 +53,7 @@ export class GameController {
       if (result) {
         return {
           status: 'success',
-          message: 'User get successfully',
+          message: 'fill balance success',
           data: result,
         };
       }
