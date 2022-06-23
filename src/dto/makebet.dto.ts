@@ -1,11 +1,13 @@
 import {
   ArrayMinSize,
   IsArray,
+  IsEnum,
   IsInt,
   IsNotEmpty,
   IsNumber,
   ValidateNested,
 } from 'class-validator';
+import { Mode } from 'src/enums/game.mode.enum';
 import { betListInterface } from 'src/interface/bet.interface';
 
 export class makeBetDto {
@@ -18,4 +20,6 @@ export class makeBetDto {
   @ArrayMinSize(1)
   bet: betListInterface[];
   wonMoney: number;
+  @IsEnum(Mode)
+  gameMode: Mode;
 }

@@ -13,6 +13,7 @@ export class GameRepositoryService {
     newBet.bet = JSON.parse(JSON.stringify(data.bet));
     newBet.wonMoney = 0;
     newBet.date = new Date();
+    newBet.gameMode = data.gameMode;
 
     const bet = await this.gameRepository.save(newBet);
     return {
@@ -21,6 +22,7 @@ export class GameRepositoryService {
       bet: bet.bet,
       money: bet.wonMoney,
       date: bet.date,
+      mode: bet.gameMode,
     };
   }
 
@@ -43,6 +45,7 @@ export class GameRepositoryService {
           },
           betList: JSON.parse(res.bet.bet),
           date: res.bet_data,
+          mode: res.bet_gameMode,
           wonMoney: res.bet_wonMoney,
           endBalance: res.user_balance + res.bet_wonMoney,
         }));

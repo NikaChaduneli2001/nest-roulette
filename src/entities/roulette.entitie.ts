@@ -32,5 +32,10 @@ export class RouletteEntity {
     type: 'boolean',
     default: false,
   })
+  @Column({
+    type: 'varchar',
+    length: 20,
+  })
+  gameMode: string;
   active: boolean;
 }
