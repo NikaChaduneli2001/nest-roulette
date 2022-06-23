@@ -28,4 +28,9 @@ export class RouletteEntity {
     default: 0,
   })
   wonMoney: number;
+  @Column({
+    type: 'boolean',
+    default: false,
+  })
+  active: boolean;
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Query } from '@nestjs/common';
 import { makeBetDto } from 'src/dto/makebet.dto';
 import { RouletteEntity } from 'src/entities/roulette.entitie';
 import { Repository } from 'typeorm';
@@ -22,5 +22,31 @@ export class GameRepositoryService {
       money: bet.wonMoney,
       date: bet.date,
     };
+  }
+
+  async fillUserBalance(userId: number, betId: number): Promise<any> {
+    const query = await this.gameRepository.createQueryBuilder('bet');
+    query.leftJoin('bet.user', 'user');
+    query.where('active=false');
+    query.andWhere({ user: userId });
+    query.andWhere({ id: betId });
+    if (query) {
+      const result = await query.getRawMany();
+      if (result && result !== null && result && undefined) {
+        return result.map((res) => ({
+          id: res.bet_id,
+          user: {
+            fullName: res.user_fullName,
+            role: res.user_role,
+            phone: res.user_phone,
+            balance: res.user_balance,
+          },
+          betList: JSON.parse(res.bet.bet),
+          date: res.bet_data,
+          wonMoney: res.bet_wonMoney,
+          endBalance: res.user_balance + res.bet_wonMoney,
+        }));
+      }
+    }
   }
 }
