@@ -7,14 +7,13 @@ import { Repository } from 'typeorm';
 export class GameRepositoryService {
   constructor(private readonly gameRepository: Repository<RouletteEntity>) {}
 
-  async makeBet(data: makeBetDto) {
+  async makeBet(data: makeBetDto, userId: number) {
     const newBet: RouletteEntity = new RouletteEntity();
     newBet.user = data.userId;
     newBet.bet = JSON.parse(JSON.stringify(data.bet));
     newBet.wonMoney = 0;
     newBet.date = new Date();
     newBet.gameMode = data.gameMode;
-
     const bet = await this.gameRepository.save(newBet);
     return {
       id: bet.id,

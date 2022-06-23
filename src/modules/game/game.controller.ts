@@ -22,13 +22,13 @@ import { GameService } from './game.service';
 export class GameController {
   constructor(private readonly gameSerice: GameService) {}
 
-  @Post()
+  @Post(':userId')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @UsePipes(ValidationPipe)
   @Roles(Role.User)
-  async makeBet(@Body() data: makeBetDto) {
+  async makeBet(@Body() data: makeBetDto, @Param() userId: number) {
     try {
-      const result = await this.gameSerice.makeBet(data);
+      const result = await this.gameSerice.makeBet(data, userId);
       if (result) {
         return {
           status: 'success',
@@ -47,7 +47,7 @@ export class GameController {
   @Patch(':userId/:betId')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @UsePipes(ValidationPipe)
-  async fillBalance(@Param() userId: number, betId: number) {
+  async fillBalance(@Param('id') userId: number, betId: number) {
     try {
       const result = await this.gameSerice.fillBalance(userId, betId);
       if (result) {

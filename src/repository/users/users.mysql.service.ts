@@ -120,4 +120,21 @@ export class UsersRepositoryService {
       return createUserInterface(update);
     }
   }
+  async fillBalance(id: number, wonMoney: number) {
+    const findUser = await this.userRepository.findOne({
+      where: { id: id },
+    });
+    if (findUser) {
+      findUser.balance += wonMoney;
+    }
+  }
+
+  async reduceAmount(id: number, loseMoney: number) {
+    const findUser = await this.userRepository.findOne({
+      where: { id: id },
+    });
+    if (findUser) {
+      findUser.balance -= loseMoney;
+    }
+  }
 }
