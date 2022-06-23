@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Param,
+  Patch,
   Post,
   Put,
   Req,
@@ -43,7 +44,7 @@ export class GameController {
     }
   }
 
-  @Put(':userId/:betId')
+  @Patch(':userId/:betId')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @UsePipes(ValidationPipe)
   async fillBalance(@Param() userId: number, betId: number) {
